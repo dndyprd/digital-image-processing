@@ -67,40 +67,36 @@ def not_images(img1):
 
 # GUI Class
 class ImageApp:
-    def _init_(self, root):
+    def __init__(self, root):
         self.root = root
-        self.root.title("Digital Image Processing GUI")
+        self.root.title("Digital Image Processing App") 
 
         self.img1 = None
         self.img2 = None
+        self.result = None
 
-        # Container untuk tombol agar rapi
-        btn_frame = tk.Frame(root)
-        btn_frame.pack(side="top", fill="x", padx=10, pady=10)
+        #Button
+        tk.Button(root, text="Pilih Gambar 1", command=self.load_img1).pack()
+        tk.Button(root, text="Pilih Gambar 2", command=self.load_img2).pack()
 
-        tk.Button(btn_frame, text="Load Image 1", command=self.load_img1).pack(side="left")
-        tk.Button(btn_frame, text="Load Image 2", command=self.load_img2).pack(side="left")
-        
-        # Tombol Operasi
-        ops_frame = tk.Frame(root)
-        ops_frame.pack(side="top")
-        
-        for text, func in [("Add", add_images), ("Sub", subtract_images), 
-                           ("Mul", multiply_images), ("Div", divide_images),
-                           ("AND", and_images), ("OR", or_images), ("XOR", xor_images)]:
-            tk.Button(ops_frame, text=text, command=lambda f=func: self.apply(f)).pack(side="left")
-        
-        tk.Button(ops_frame, text="NOT", command=self.apply_not).pack(side="left")
+        tk.Button(root, text="Add", command=lambda: self.apply(add_images)).pack()
+        tk.Button(root, text="Subtract", command=lambda: self.apply(subtract_images)).pack()
+        tk.Button(root, text="Multiply", command=lambda: self.apply(multiply_images)).pack()
+        tk.Button(root, text="Divide", command=lambda: self.apply(divide_images)).pack()
+        tk.Button(root, text="AND", command=lambda: self.apply(and_images)).pack()
+        tk.Button(root, text="OR", command=lambda: self.apply(or_images)).pack()
+        tk.Button(root, text="XOR", command=lambda: self.apply(xor_images)).pack()
+        tk.Button(root, text="NOT", command=self.apply_not).pack()
 
-        # Panels untuk display
-        self.panel1 = tk.Label(root, text="Image 1")
-        self.panel1.pack(side="left", padx=5)
+        #Panels
+        self.panel1 = tk.Label(root)
+        self.panel1.pack(side="left")
 
-        self.panel2 = tk.Label(root, text="Image 2")
-        self.panel2.pack(side="left", padx=5)
+        self.panel2 = tk.Label(root)
+        self.panel2.pack(side="left")
 
-        self.panel3 = tk.Label(root, text="Result", fg="blue")
-        self.panel3.pack(side="left", padx=5)
+        self.panel3 = tk.Label(root)
+        self.panel3.pack(side="left")
 
     def load_img1(self):
         path = filedialog.askopenfilename()
